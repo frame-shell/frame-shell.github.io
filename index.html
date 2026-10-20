@@ -259,7 +259,7 @@
 <header class="bar">
   <div class="ws"><span class="b">[</span><a href="#top" class="on">1</a><a href="#themes">2</a><a href="#launcher">3</a><a href="#inside">4</a><a href="#install">5</a><span class="tb"><span class="b">]─[</span><span class="title" id="title">frameshell · a terminal-styled desktop</span></span><span class="b">]</span></div>
   <div class="clock" id="clock">--:--<small id="date"></small></div>
-  <div class="right"><span class="b">[</span><span id="bar-theme">periwinkle</span><span class="b">]─[</span><a href="https://github.com/vxnsin/frameshell">github</a><span class="b">]</span></div>
+  <div class="right"><span class="b">[</span><span id="bar-theme">periwinkle</span><span class="b">]─[</span><a href="https://github.com/frame-shell">github</a><span class="b">]</span></div>
 </header>
 
 <main id="top">
@@ -271,7 +271,7 @@
     <p class="lead">A desktop for CachyOS and Hyprland that looks like a terminal: square frames, one monospace font and the same colors in every app.</p>
     <div class="cmd">
       <span class="ps">❯</span>
-      <code id="install-cmd">git clone --depth 1 https://github.com/vxnsin/frameshell ~/frameshell &amp;&amp; ~/frameshell/frame install</code>
+      <code id="install-cmd">curl -fsSL https://frame-shell.github.io/install.sh | bash</code>
       <button class="copy" data-copy="install-cmd">copy</button>
     </div>
     <p class="note"><b>work in progress</b> · it runs on my CachyOS machine, but it still has bugs and is not ready for anyone else's desktop yet.</p>
@@ -363,9 +363,9 @@
   <section class="frame rise" id="install" style="animation-delay: .1s">
     <span class="label">frame install</span>
     <h2>One command sets it up</h2>
-    <p>It asks how much you want (everything, app by app, or only the shell), which layout and which theme, notices a GoXLR, backs up what it replaces and links the rest. <code>frame update</code> pulls and applies again, <code>frame status</code> shows what is linked.</p>
+    <p>It asks how much you want (everything, app by app, or only the shell), which layout and which theme, notices a GoXLR, backs up what it replaces and links the rest. Only the modules you pick are downloaded; <code>frame add steam</code> brings one in later, <code>frame update</code> pulls and applies again, <code>frame status</code> shows what is linked.</p>
     <div class="term" id="term">
-      <div class="ln" style="animation-delay: .2s"><span class="ps">❯</span> ~/frameshell/frame install</div>
+      <div class="ln" style="animation-delay: .2s"><span class="ps">❯</span> curl -fsSL https://frame-shell.github.io/install.sh | bash</div>
       <div class="ln" style="animation-delay: .7s"> </div>
       <div class="ln" style="animation-delay: .8s">  <span class="wd">frame</span>  <span class="dim">frameshell · CachyOS · Hyprland</span></div>
       <div class="ln" style="animation-delay: 1.3s">  What should be set up?</div>
@@ -399,7 +399,7 @@
   </section>
 
   <footer>
-    <span>frameshell · by <a href="https://github.com/vxnsin">vxnsin</a> · <a href="https://github.com/vxnsin/frameshell">source</a> · <a href="https://github.com/vxnsin/frameshell/tree/main/docs">docs</a></span>
+    <span>frameshell · by <a href="https://github.com/vxnsin">vxnsin</a> · <a href="https://github.com/frame-shell">source</a> · <a href="https://github.com/frame-shell/frameshell/tree/main/docs">docs</a> · <a href="https://github.com/orgs/frame-shell/projects/1">ideas</a></span>
     <span>thanks to <a href="https://github.com/refact0r/system24">system24</a>, <a href="https://github.com/caelestia-dots">caelestia</a>, <a href="https://github.com/end-4/dots-hyprland">end-4</a> and <a href="https://quickshell.org">Quickshell</a></span>
   </footer>
 </main>
@@ -559,7 +559,7 @@
       case "#": return EMOJI.filter(([, n]) => !rest || n.split(" ").some(w => w.startsWith(rest.toLowerCase()))).map(([e, n]) => R(e, n, e, n, "enter copies · shift+enter pastes it into the window behind"));
       case "/": return rest ? [["/", rest, "folder", "~/Documents"], ["·", `${rest}.md`, "file", "~/Documents/" + rest], ["·", `old-${rest}.txt`, "file", "~/Downloads"]].map(([g, t, c, dir]) => R(g, t, c, t, dir, [["path", `${dir}/${t}`]])) : [R("/", "type a file or folder name", "")];
       case "ssh": return [R(">", rest ? `ssh ${rest}` : "nas", "ssh", null, rest ? "not in ~/.ssh/config" : "vxnsin@192.168.1.20", [["port", "22"]])];
-      case ";": return [["¶", "git clone --depth 1 https://github.com/vxnsin/frameshell"], ["▣", "image · png · 1.2MB"], ["¶", "token for the staging box"], ["¶", "meeting at 15:30"]].filter(([, t]) => !rest || t.includes(rest)).map(([g, t]) => R(g, t, g === "▣" ? "image" : "text", t, "enter copies · shift+enter deletes it from the history"));
+      case ";": return [["¶", "curl -fsSL https://frame-shell.github.io/install.sh | bash"], ["▣", "image · png · 1.2MB"], ["¶", "token for the staging box"], ["¶", "meeting at 15:30"]].filter(([, t]) => !rest || t.includes(rest)).map(([g, t]) => R(g, t, g === "▣" ? "image" : "text", t, "enter copies · shift+enter deletes it from the history"));
       case "?": { const [k, ...w] = rest.split(" "); const eng = { g: "Google", ddg: "DuckDuckGo", yt: "YouTube", gh: "GitHub", aw: "Arch Wiki", aur: "AUR", w: "Wikipedia", r: "Reddit" }; return eng[k] && w.length ? [R(eng[k][0], `${eng[k]}: ${w.join(" ")}`, k)] : Object.entries(eng).map(([key, n]) => R(n[0], rest ? `${n}: ${rest}` : `${key} · ${n}`, key)); }
       case "c": return [R("c", rest || "ask Claude something", "claude", null, rest ? "a short answer from claude -p; nothing is sent before Enter" : "only there when the claude CLI is installed")];
       default: {
